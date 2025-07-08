@@ -1,0 +1,189 @@
+* {
+    border: none;
+    font-family: "JetBrainsMono";
+    font-size: 14px;
+}
+
+window#waybar {
+
+    background-color: rgba(0, 0, 0, 0.65);
+    color: #ffffff;
+    transition-property: background-color;
+    transition-duration: .5s;
+    border-radius: 10px;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+#workspaces button {
+    padding: 0px;
+    margin: 4px 0 6px 0;
+    background-color: transparent;
+    color: #ffffff;
+    min-width: 36px;
+}
+
+#workspaces button.active {
+    padding: 0 0 0 0;
+    margin: 4px 0 6px 0;
+    min-width: 36px;
+}
+
+#workspaces button:hover {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px ;
+}
+
+#workspaces button.focused {
+    background-color: #bbccdd;
+    color: #323232;
+}
+
+#workspaces button.urgent {
+    color: red;
+}
+
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#custom-keyboard-layout,
+#custom-network_traffic,
+#custom-media,
+#tray,
+#idle_inhibitor,
+#custom-power,
+#custom-updates,
+#language {
+    padding: 0px 3px;
+    margin: 4px 3px 5px 3px;
+    color: #ffffff;
+    background-color:transparent;
+}
+
+#window,
+#workspaces {
+    border : solid 1px white ;
+    border-radius: 100px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#clock {
+    color: #90ee90;
+}
+
+#battery {
+    color: red;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #333333;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: #ff0000;
+    color:#ff0000 ;
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+#cpu {
+    color: #ff0000;
+}
+
+#memory {
+    color: #00f98f;
+}
+
+#backlight {
+    color: cyan;
+}
+
+#network {
+    color: #ff9e64;
+}
+
+#network.disconnected {
+    color: #df3320;
+}
+
+#pulseaudio {
+    color: orange;
+}
+
+#pulseaudio.muted {
+    color: #a0a0a0;
+}
+
+#custom-power {
+    color: #0db9d7;
+}
+
+#custom-updates {
+    color: #b9f27c;
+}
+
+#custom-media {
+    background-color: #66cc99;
+    color: #2a5c45;
+    min-width: 100px;
+}
+
+#custom-media.custom-spotify {
+    background-color: #66cc99;
+}
+
+#custom-media.custom-vlc {
+    background-color: #ffa000;
+}
+
+#temperature {
+    color: #0db9d7;
+}
+
+#temperature.critical {
+    background-color: #ff0000;
+}
+
+#tray {
+    border : solid 1px blueviolet ;
+    border-radius : 30px;
+}
+
+#idle_inhibitor {
+    background-color: #343434;
+    border-radius: 15px;
+}
+#custom-keyboard-layout{
+    color : red;
+}
+#custom-network_traffic{
+    color : orange;
+}
+
+#custom-separator {
+    color: white ;
+    margin: 0 1px;
+    padding-bottom: 5px;
+}

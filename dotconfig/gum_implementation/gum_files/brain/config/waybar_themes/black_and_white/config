@@ -1,0 +1,200 @@
+{
+    "layer": "bottom",
+    "position": "top",
+    "height": 10,
+    "margin": "5, 5, 0, 5",
+    "modules-left": ["custom/launcher", "hyprland/workspaces", "cpu", "memory","custom/updates","custom/keyboard-layout","custom/network_traffic"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": ["tray", "backlight", "idle_inhibitor", "pulseaudio", "network", "battery", "clock", "custom/power"],
+
+       "custom/updates": {
+       "format": "{} {icon}",
+       "return-type": "json",
+       "format-icons": {
+           "has-updates": "󱍷",
+           "updated": "󰂪",
+       },
+       "exec-if": "which waybar-module-pacman-updates",
+       "exec": "waybar-module-pacman-updates --interval-seconds 10 --network-interval-seconds 7200 --network-interval-seconds",
+       "on-click": "foot -e update"
+   },
+   "custom/keyboard-layout": {
+      	"format": " Cheat", // Icon: keyboard
+        "on-click": "~/.local/bin/keyhint.sh",
+     },
+
+    "custom/network_traffic": {
+        "exec": "~/.config/waybar/scripts/network_traffic.sh",
+        "return-type": "json",
+        "format-ethernet": "{icon} {ifname} ⇣{bandwidthDownBytes} ⇡{bandwidthUpBytes}",    // optional
+    },
+    "custom/power": {
+        "format":"⏻",
+       	"on-click": "nwgbar",
+        "tooltip": false,
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": "",
+        },
+        "on-click":"exec ~/.config/hypr/scripts/idle_inhibitor.sh",
+    },
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "all-outputs": true,
+        "sort-by-number": true,
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "10",
+            "urgent": "",
+            "focused": "",
+            "default": ""
+        },
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    },
+
+    "custom/launcher": {
+        "format":"⋏",
+        "on-click" : "exec nwg-drawer -c 7 -is 70 -spacing 23",
+        "tooltip": false,
+    },
+
+    "hyprland/window": {
+        "format": "{}",
+        "max-length" : 80,
+	//"icon":true,
+	//"icon-size" : 20
+    },
+
+    "clock": {
+        "tooltip-format": "<big>{:%A, %d.%B %Y }</big>\n<tt><small>{calendar}</small></tt>",
+        "format": " {:%a %d %b  %I:%M %p}",	//12 hour format
+        //"format": " {:%a %d %b  %H:%M}",	//24 hour format
+        "format-alt": " {:%d/%m/%Y  %H:%M:%S}",
+        //"max-length": 200
+        "interval": 1,
+        "on-click": "~/.config/waybar/scripts/OCV",
+    },
+
+    "cpu": {
+        "interval": 10,
+        "format": " {usage}%",
+        "max-length": 10,
+        "on-click": "footclient -e 'htop'"
+    },
+
+    "memory": {
+        "interval": 30,
+        "format": " {used:0.2f}GB",
+        "on-click": "footclient -e 'htop'",
+        "max-length": 10,
+        "critical": 80
+    },
+
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{icon} {time}",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "temperature": {
+        "critical-threshold": 80,
+	"format-critical": "{temperatureC}° ",
+	"format": "{temperatureC}° "
+    },
+
+    "network": {
+        //"interface": "wlp0s20f3", // (Optional) To force the use of this interface  "format-wifi": "  {essid}",
+        "format": "⚠Disabled",
+        "format-wifi": ";({signalStrength}%)",
+        "format-ethernet": "({signalStrength}%)",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "format-linked": "{ifname} (No IP)",
+        "format-disconnected": "⚠Disabled",
+        "family": "ipv4",
+        "tooltip-format-wifi": "  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
+        "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
+        "on-click": "nm-connection-editor",
+        "tooltip-format": "{essid}: {ipaddr}",
+        },
+        "on-click": "footclient nmtui",
+        "tooltip-format": "{ifname}: {ipaddr}",
+    },
+
+    "pulseaudio": {
+      // "scroll-step": 1, // %, can be a float
+      "format": "{icon} {volume}% {format_source}",
+      "format-bluetooth": "{icon} {volume}% {format_source}",
+      "format-bluetooth-muted": " {format_source}",
+      "format-muted": "  {format_source}",
+      "format-source": " {volume}%",
+      "format-source-muted": "",
+      "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "🎧",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": ["", "", ""]
+      },
+      "on-click": "pavucontrol"
+    },
+      "random-icons": {
+        "off": "<span color=\"#f53c3c\"></span> ", // Icon grayed out when "random" is off
+        "on": " "
+      },
+      "repeat-icons": {
+        "on": " "
+      },
+      "single-icons": {
+        "on": "1 "
+      },
+      "state-icons": {
+        "paused": "",
+        "playing": ""
+      },
+      "max-length": 45
+    },
+
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon} {percent}%",
+        "format-icons": ["", ""],
+        "on-scroll-down": "brightnessctl -c backlight set 1%-",
+        "on-scroll-up": "brightnessctl -c backlight set +1%",
+        "on-click": "~/.config/waybar/scripts/backlight-hint.sh",
+    },
+    "custom/updates": {
+        "format": "{} {icon}",
+        "return-type": "json",
+        "format-icons": {
+            "has-updates": "󱍷",
+            "updated": "󰂪",
+            "interval": 7200,
+        },
+    "tray": {
+        "icon-size": 15
+    },
+
+}

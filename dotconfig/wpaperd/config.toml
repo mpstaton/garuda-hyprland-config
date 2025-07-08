@@ -1,0 +1,4 @@
+[default]
+path = "/home/mps/Nextcloud/Assets/Wallpapers"
+duration = "10m"
+transition-time = 600
