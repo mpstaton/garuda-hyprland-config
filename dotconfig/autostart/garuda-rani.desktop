@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=garuda-rani
+Comment=garuda-ranistartup script
+Exec=/usr/bin/garuda-rani 
+StartupNotify=false
+Terminal=false
