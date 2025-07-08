@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Msty
+Exec=/home/mps/Applications/Msty
+Icon=/home/mps/.local/share/icons/msty/msty.svg
+Terminal=false
+Categories=Utility;
+Comment=Msty Application
+

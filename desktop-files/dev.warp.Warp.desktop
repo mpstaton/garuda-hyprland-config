@@ -1,0 +1,24 @@
+[Desktop Entry]
+# Custom Warp launcher with scaling controls
+Version=1.0
+
+Type=Application
+
+Name=Warp
+GenericName=TerminalEmulator
+
+# Custom launch command with scaling environment variables
+Exec=env GDK_SCALE=1.0 QT_SCALE_FACTOR=1.0 warp-terminal %U
+StartupWMClass=dev.warp.Warp
+
+Keywords=shell;prompt;command;commandline;cmd;
+
+Icon=dev.warp.Warp
+
+Categories=System;TerminalEmulator;
+
+# Don't run this application within a terminal.
+Terminal=false
+
+# Register ourselves as the handler for warp:// URLs.
+MimeType=x-scheme-handler/warp;

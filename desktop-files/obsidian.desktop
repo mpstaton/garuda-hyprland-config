@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Obsidian
+# Custom launch command with larger UI scaling for Electron app
+Exec=env GDK_SCALE=1.5 QT_SCALE_FACTOR=1.5 ELECTRON_SCALE=1.5 /usr/bin/obsidian --force-device-scale-factor=1.5 %U
+Terminal=false
+Type=Application
+Icon=obsidian
+StartupWMClass=obsidian
+Comment=Obsidian with larger UI scaling
+MimeType=x-scheme-handler/obsidian;
+Categories=Office;

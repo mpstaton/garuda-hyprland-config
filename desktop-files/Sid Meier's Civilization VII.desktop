@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Sid Meier's Civilization VII
+Comment=Play this game on Steam
+Exec=steam steam://rungameid/1295660
+Icon=steam_icon_1295660
+Terminal=false
+Type=Application
+Categories=Game;
