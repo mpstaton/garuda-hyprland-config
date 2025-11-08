@@ -145,26 +145,111 @@ systemctl --user restart waybar
 
 ## UI Scaling Guide
 
+### The Problem: Linux Doesn't Uniformly Handle App Rendering
+
+With a 4K display at 1.25x base scaling, different applications respond differently:
+- Some apps scale too large (fonts become massive)
+- Some apps scale too small (UI elements are tiny)
+- Each app type (GTK, Qt, Electron, native) needs individual tuning
+
+**Solution**: Use custom `.desktop` files with per-application scaling environment variables.
+
 ### Environment Variables for Scaling
 
-| Variable | Purpose | Values |
-|----------|---------|--------|
-| `GDK_SCALE` | GTK applications | 1.0, 1.25, 1.5, 2.0 |
-| `QT_SCALE_FACTOR` | Qt applications | 1.0, 1.25, 1.5, 2.0 |
-| `ELECTRON_SCALE` | Electron apps | 1.0, 1.25, 1.5, 2.0 |
+| Variable | App Type | Example Values | Notes |
+|----------|----------|----------------|-------|
+| `GDK_SCALE` | GTK apps | 0.8, 0.9, 1.0, 1.25, 1.5 | GNOME apps, many Linux GUI apps |
+| `QT_SCALE_FACTOR` | Qt apps | 0.8, 0.9, 1.0, 1.25, 1.5 | KDE apps, Qt-based applications |
+| `--force-device-scale-factor` | Electron apps | 0.8, 0.9, 1.0, 1.25, 1.5 | VS Code, Discord, Obsidian, Slack |
+| `ELECTRON_SCALE` | Electron apps | 0.8, 0.9, 1.0, 1.25, 1.5 | Alternative Electron variable |
 
-### Electron App Scaling
-For Electron apps (VS Code, Discord, Obsidian), use:
+### Creating Custom Per-App Scaling
+
+#### Step 1: Find the Original Desktop File
 ```bash
---force-device-scale-factor=1.5
+# Search for the app's desktop file
+find /usr/share/applications -name "*appname*.desktop"
+# Or list all
+ls /usr/share/applications/
 ```
 
-### Example Desktop File
+#### Step 2: Copy to Local Applications
+```bash
+# Copy to this repo's desktop-files directory
+cp /usr/share/applications/myapp.desktop ~/code/garuda-hyprland-config/desktop-files/
+
+# Or copy directly to local (not recommended - use repo as master)
+cp /usr/share/applications/myapp.desktop ~/.local/share/applications/
+```
+
+#### Step 3: Edit the Exec Line
+
+**For GTK/Qt apps:**
 ```ini
 [Desktop Entry]
 Name=MyApp
-Exec=env GDK_SCALE=1.5 QT_SCALE_FACTOR=1.5 myapp --force-device-scale-factor=1.5
+# Original line:
+# Exec=myapp %U
+# Modified line with scaling:
+Exec=env GDK_SCALE=0.9 QT_SCALE_FACTOR=0.9 myapp %U
 ```
+
+**For Electron apps:**
+```ini
+[Desktop Entry]
+Name=MyElectronApp
+# Original line:
+# Exec=/usr/bin/myapp %U
+# Modified line with scaling:
+Exec=env GDK_SCALE=1.5 QT_SCALE_FACTOR=1.5 /usr/bin/myapp --force-device-scale-factor=1.5 %U
+```
+
+**For apps needing smaller fonts (like Warp):**
+```ini
+[Desktop Entry]
+Name=Warp
+Exec=env GDK_SCALE=0.9 QT_SCALE_FACTOR=0.9 warp-terminal --force-device-scale-factor=0.9 %U
+```
+
+#### Step 4: Link from Repo and Update Database
+```bash
+# Create symlink from repo to system
+ln -sf ~/code/garuda-hyprland-config/desktop-files/myapp.desktop ~/.local/share/applications/
+
+# Update desktop database
+update-desktop-database ~/.local/share/applications
+```
+
+#### Step 5: Test the Application
+```bash
+# Launch from application menu or command line
+gtk-launch myapp
+```
+
+### Real-World Examples from This Config
+
+**Warp Terminal (scaled down to 0.9x):**
+```ini
+Exec=env GDK_SCALE=0.9 QT_SCALE_FACTOR=0.9 warp-terminal --force-device-scale-factor=0.9 %U
+```
+*Why: Warp's default fonts are too large on 4K displays*
+
+**Obsidian (scaled up to 1.5x):**
+```ini
+Exec=env GDK_SCALE=1.5 QT_SCALE_FACTOR=1.5 ELECTRON_SCALE=1.5 /usr/bin/obsidian --force-device-scale-factor=1.5 %U
+```
+*Why: Obsidian needs larger UI for comfortable reading/writing*
+
+### Common Scaling Values
+
+| Scale | Use Case |
+|-------|----------|
+| 0.8x | Apps with very large default UI |
+| 0.9x | Apps with slightly large UI (like Warp) |
+| 1.0x | Apps that render perfectly at base scaling |
+| 1.25x | Match system default (our monitor setting) |
+| 1.5x | Apps needing larger UI (reading/writing apps) |
+| 2.0x | Apps with very small default UI |
 
 ## Troubleshooting
 

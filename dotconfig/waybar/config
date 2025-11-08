@@ -1,7 +1,6 @@
 {
     "layer": "top",
     "position": "top",
-    "width":2400,
     "margin": "0 0 0 0",
     "spacing":0,
     "modules-left": ["custom/launcher", "hyprland/workspaces", "hyprland/window"],
