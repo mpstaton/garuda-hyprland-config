@@ -10,7 +10,7 @@ export MICRO_TRUECOLOR=1
 export EDITOR=/usr/bin/micro
 
 #browser
-export BROWSER=firedragon
+export BROWSER=vivaldi-stable
 #terminal
 export TERM=foot
 #mail

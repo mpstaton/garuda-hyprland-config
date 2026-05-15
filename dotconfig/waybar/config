@@ -5,7 +5,7 @@
     "spacing":0,
     "modules-left": ["custom/launcher", "hyprland/workspaces", "hyprland/window"],
     "modules-center": ["custom/network_traffic"],
-    "modules-right": ["custom/updates", "backlight", "custom/keyboard-layout", "temperature", "cpu", "memory", "battery", "pulseaudio", "network", "tray", "idle_inhibitor", "clock","custom/power"],
+    "modules-right": ["clock#time","custom/updates", "backlight", "custom/keyboard-layout", "temperature", "cpu", "memory", "battery", "pulseaudio", "network", "tray", "idle_inhibitor", "custom/power"],
 
 
   "hyprland/workspaces": {
@@ -43,14 +43,20 @@
         },
         "on-click":"exec ~/.config/hypr/scripts/idle_inhibitor.sh"
     },
+    "clock#time": {
+        "format": "  {:%a %d   %H:%M}",
+        "interval": 60,
+        "locale": "en_US.UTF-8"
+    },
     "tray": {
         "icon-size": 20,
         "spacing": 4
     },
     "clock": {
-        "tooltip-format": "<big>{:%A, %d.%B %Y }</big>\n<tt><small>{calendar}</small></tt>",
-        "format": " {:%a %d %b  %I:%M %p}",	
-        "format-alt": " {:%d/%m/%Y  %H:%M:%S}",
+        "tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "{:%H:%M}",	
+        "format-alt": "{:%a %d %b %Y}",
+        "locale": "en_US.UTF-8",
         "interval": 1,
         "on-click": "~/.config/waybar/scripts/OCV"
     },

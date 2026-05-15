@@ -82,7 +82,13 @@ window#waybar {
 
 
 #clock {
- color:#a3be8c;
+    color: #a3be8c;
+}
+
+#clock.time {
+    color: #88c0d0;
+    font-size: 16px;
+    padding: 0 8px;
 }
 
 #backlight {
